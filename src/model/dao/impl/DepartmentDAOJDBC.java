@@ -4,12 +4,12 @@ import db.DB;
 import db.DbException;
 import model.dao.DepartmentDAO;
 import model.entities.Department;
-import model.entities.Seller;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DepartmentDAOJDBC implements DepartmentDAO {
@@ -67,6 +67,28 @@ public class DepartmentDAOJDBC implements DepartmentDAO {
 
     @Override
     public List<Department> findAll() {
-        return null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            st = conn.prepareStatement(
+                    "SELECT * FROM department");
+
+            rs = st.executeQuery();
+
+            List<Department> departmentList = new ArrayList<>();
+
+            while (rs.next()) {
+                Department department = new Department();
+                department.setId(rs.getInt("Id"));
+                department.setName(rs.getString("Name"));
+                departmentList.add(department);
+            }
+            return departmentList;
+        } catch (SQLException e) {
+            throw new DbException(e.getLocalizedMessage());
+        } finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
     }
 }

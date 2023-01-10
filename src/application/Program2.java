@@ -21,6 +21,12 @@ public class Program2 {
         Department department = departmentDAO.findById(3);
         System.out.println(department);
 
+        System.out.println("\n#### TEST 2: seller findAll ####");
+        List<Department> departmentList = departmentDAO.findAll();
+        for (Department department1 : departmentList) {
+            System.out.println(department1);
+        }
+
     }
 
 }
