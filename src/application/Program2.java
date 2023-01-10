@@ -14,7 +14,6 @@ public class Program2 {
 
     public static void main(String[] args) {
 
-
         DepartmentDAO departmentDAO = DAOFactory.createDepartmentDAO();
 
         System.out.println("#### TEST 1: department findById ####");
@@ -31,6 +30,12 @@ public class Program2 {
         Department newDepartment = new Department(null, "Food");
         departmentDAO.insert(newDepartment);
         System.out.println("Inserted! New id = " + newDepartment.getId());
+
+        System.out.println("\n#### TEST 4: department update ####");
+        department = departmentDAO.findById(5);
+        department.setName("Shoes");
+        departmentDAO.update(department);
+        System.out.println("Updated completed! " + department.getId());
 
     }
 
