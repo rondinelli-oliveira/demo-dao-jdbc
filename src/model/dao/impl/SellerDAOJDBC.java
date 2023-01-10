@@ -52,8 +52,7 @@ public class SellerDAOJDBC implements SellerDAO {
             }
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
-        }
-        finally {
+        } finally {
             DB.closeStatement(st);
         }
     }
@@ -65,8 +64,8 @@ public class SellerDAOJDBC implements SellerDAO {
 
             st = conn.prepareStatement(
                     "UPDATE seller "
-                    + "SET Name = ?, Email = ?, BirthDate = ?, BaseSalary = ?, DepartmentId = ? "
-                    + "WHERE Id = ?");
+                            + "SET Name = ?, Email = ?, BirthDate = ?, BaseSalary = ?, DepartmentId = ? "
+                            + "WHERE Id = ?");
 
             st.setString(1, seller.getName());
             st.setString(2, seller.getEmail());
@@ -78,8 +77,7 @@ public class SellerDAOJDBC implements SellerDAO {
             st.executeUpdate();
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
-        }
-        finally {
+        } finally {
             DB.closeStatement(st);
         }
 
@@ -87,8 +85,20 @@ public class SellerDAOJDBC implements SellerDAO {
 
     @Override
     public void delete(Integer id) {
-        // TODO Auto-generated method stub
+        PreparedStatement st = null;
+        try {
+            st = conn.prepareStatement("DELETE FROM seller WHERE Id = ?");
+            st.setInt(1, id);
+            int rows = st.executeUpdate();
 
+            if (rows == 0) {
+                throw new DbException("Id not exists! ");
+            }
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+        }
     }
 
     @Override

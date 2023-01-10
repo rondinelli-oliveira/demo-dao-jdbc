@@ -7,10 +7,13 @@ import model.entities.Seller;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 
 public class Program {
 
     public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
 
         SellerDAO sellerDAO = DAOFactory.createSellerDAO();
 
@@ -31,10 +34,10 @@ public class Program {
             System.out.println(seller1);
         }
 
-//        System.out.println("\n#### TEST 4: seller insert ####");
-//        Seller newSeller = new Seller(null, "Greg Green", "greg@gmail.com", new Date(), 4000.0, department);
-//        sellerDAO.insert(newSeller);
-//        System.out.println("Inserted! New id = " + newSeller.getId());
+        System.out.println("\n#### TEST 4: seller insert ####");
+        Seller newSeller = new Seller(null, "Greg Green", "greg@gmail.com", new Date(), 4000.0, department);
+        sellerDAO.insert(newSeller);
+        System.out.println("Inserted! New id = " + newSeller.getId());
 
         System.out.println("\n#### TEST 5: seller insert ####");
         seller = sellerDAO.findById(8);
@@ -44,6 +47,14 @@ public class Program {
         seller.setBaseSalery(5000.0);
         sellerDAO.update(seller);
         System.out.println("Updated completed! " + seller.getId());
+
+        System.out.println("\n#### TEST 6: seller delete ####");
+        System.out.print("Enter id for delete test: ");
+        int id = scanner.nextInt();
+        sellerDAO.delete(id);
+        System.out.println("Delete completed! ");
+
+        scanner.close();
     }
 
 }
