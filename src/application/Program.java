@@ -51,7 +51,7 @@ public class Program {
         System.out.println("\n#### TEST 6: seller delete ####");
         System.out.print("Enter id for delete test: ");
         int id = scanner.nextInt();
-        sellerDAO.delete(id);
+        sellerDAO.deleteById(id);
         System.out.println("Delete completed! ");
 
         scanner.close();
